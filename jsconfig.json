@@ -1,0 +1,8 @@
+{
+    // Cấu Hình để Click vô thư mục ~/src/*/*/* || ../../src/*/*
+    "compilerOptions": {
+        "paths": {
+            "~/*": ["./src/*"]
+        },
+    }
+}

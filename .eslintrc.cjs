@@ -1,4 +1,4 @@
-// Base-Eslint --> Cấu hình cơ bản của EsLint
+// Base-Eslint --> Cấu hình cơ bản của EsLint === FILE CŨ 
 module.exports = {
   env: { browser: true, es2020: true, node: true },
   extends: [
@@ -15,11 +15,19 @@ module.exports = {
     'react-refresh'
   ],
   rules: {
+    // Rules React JS
     'react-refresh/only-export-components': 'warn', // 
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn', // Báo nếu dùng useEffect nếu trống 
     'react/prop-types': 0,  
     'react/display-name': 0,    // 
+
+    // Rules MUI - masterial UI 
+    "no-restricted-imports" : [
+        "error", {
+          "patterns" : ["@mui/*/*/*"],
+        }
+    ],
 
     // 0 == false || 1 == true
     'no-console': 0,    // Xoá Toàn bộ console.log<> khi đưa lên product

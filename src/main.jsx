@@ -1,10 +1,16 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
+import theme from './theme.js';
 import App from './App.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      {/* Tối ưu UI giữa các Browsers */}
+      <CssBaseline /> 
+      <App />
+    </ThemeProvider>
   </StrictMode>,
 );
