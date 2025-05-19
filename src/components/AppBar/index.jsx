@@ -6,6 +6,7 @@ import Badge from '@mui/material/Badge';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Tooltip from '@mui/material/Tooltip';
+import AddIcon from '@mui/icons-material/Add';
 
 // import trelloLogo from '~/assets/trelloLogo.svg' --> Import kieu cu ‼️‼️
 import SvgIcon from '@mui/material/SvgIcon';
@@ -43,7 +44,10 @@ function AppBar() {
                         {/* Recent ✅*/}
                         <Recent />
                         <Template />
-                        <Button variant='outlined'>Create</Button>
+                        <Button
+                            variant='outlined'
+                            startIcon={<AddIcon />}
+                        >Create</Button>
                     </Box>
                 </Box>
                 {/* right */}
