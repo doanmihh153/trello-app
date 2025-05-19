@@ -98,16 +98,18 @@ function BoardBar() {
                             }
                         }}
                     >
-                        <Tooltip title='GiaKhang'>
+                        <Tooltip title='Minh đen'>
                             <Avatar
-                                alt='GiaKhang'
-                                src='https://pbs.twimg.com/profile_images/1758508514954391552/ymUgHzSG_400x400.jpg'
+                                alt='Minh đen'
+                                // src='https://pbs.twimg.com/profile_images/1758508514954391552/ymUgHzSG_400x400.jpg'
+                                src='../public/meme2.JPG'
                             />
                         </Tooltip>
-                        <Tooltip title='ThanhThuy'>
+                        <Tooltip title='Minh đầu đinh'>
                             <Avatar
-                                alt='ThanhThuy'
-                                src='https://cdn.24h.com.vn/upload/1-2025/images/2025-01-17/2-1737097800-113-width645height904.jpg'
+                                alt='Minh đầu đinh'
+                                // src='https://cdn.24h.com.vn/upload/1-2025/images/2025-01-17/2-1737097800-113-width645height904.jpg'
+                                src='../public/meme3.JPG'
                             />
                         </Tooltip>
                     </AvatarGroup>
