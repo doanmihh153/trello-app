@@ -55,14 +55,14 @@ export default [
             'no-restricted-imports': [
                 'error',
                 {
-                    patterns: ['@mui/*/*/*'], // Không cho import sâu 3 cấp ví dụ: @mui/material/Button/Button.js
+                    patterns: ['@mui/*/*/'], // Không cho import sâu 3 cấp ví dụ: @mui/material/Button/Button.js
                 },
             ],
 
             // --- Các rule để clean code hơn ---
             'no-console': 'off', // Có thể giữ console.log để debug dev, tắt nếu build production
             'no-lonely-if': 'warn', // Cảnh báo if không cần thiết (có thể viết gọn hơn)
-            'no-unused-vars': 'warn', // Cảnh báo biến khai báo mà không dùng
+            'no-unused-vars': 'off', // Cảnh báo biến khai báo mà không dùng
             'no-trailing-spaces': 'warn', // Không được dư space cuối dòng
             'no-multi-spaces': 'warn', // Không được dư nhiều khoảng trắng giữa các token
             'no-multiple-empty-lines': 'warn', // Không để quá nhiều dòng trống
@@ -75,9 +75,10 @@ export default [
             'linebreak-style': 'off', // Bỏ qua cảnh báo xuống dòng (windows vs unix)
             'no-unexpected-multiline': 'warn', // Tránh lỗi không dùng dấu ; mà xuống dòng sai cách
             'keyword-spacing': 'warn', // Thêm khoảng trắng đúng cách với từ khóa: if, else, return...
-            'comma-dangle': 'warn', // Dấu phẩy cuối object, array (bắt buộc hoặc cảnh báo)
+            'comma-dangle': 'off', // Dấu phẩy cuối object, array (bắt buộc hoặc cảnh báo)
             'comma-spacing': 'warn', // Khoảng cách sau dấu phẩy
             'arrow-spacing': 'warn', // Khoảng trắng giữa `=>`
+            'no-unused-expressions': 'warn', // Nếu muốn import rõ ràng hãy bật lên == 'warn'
         },
     },
 ];
