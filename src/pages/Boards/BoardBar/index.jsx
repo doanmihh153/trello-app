@@ -1,17 +1,117 @@
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
+import { alpha } from '@mui/material/styles';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import VpnLockIcon from '@mui/icons-material/VpnLock';
+import AddToDriveIcon from '@mui/icons-material/AddToDrive';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import Tooltip from '@mui/material/Tooltip';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+
+// Sửa biến chung! -- Style
+const STYLES_MENU_BOARD_BAR = {
+    color: 'primary.main',
+    backgroundColor: 'white',
+    border: 'none', paddingX: '5px',
+    borderRadius: '2px',
+
+    // Custom Icons nè ‼️ ‼️ ‼️
+    '& .MuiSvgIcon-root': {
+        color: 'primary.main'
+    },
+
+    '&:hover': {
+        bgcolor: (theme) => alpha(theme.palette.primary.main, 0.15)
+    }
+};
+
 
 function BoardBar() {
     return (
         <>
             {/* Navbar - Board Bar */}
-            <Box sx={{
-                backgroundColor: 'primary.dark',
+            <Box px={2} sx={{
                 width: '100%',
-                height: (theme) => theme.trello.boardBarHeight,
+                // height: '48px', ---> Cũ ‼️
+                height: (theme) => theme.trello.boardBarHeight, // Mới ✅ ✅ ✅
                 display: 'flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                justifyContent: 'space-between', gap: 2, overflowX: 'auto',
+                borderTop: '1px solid #00bfa5',
             }}>
-                Board Bar
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    {/* Dashboard --- */}
+                    <Chip
+                        sx={STYLES_MENU_BOARD_BAR}
+                        icon={<DashboardIcon />}
+                        label="Dashboard"
+                        onClick={() => console.log('This is Dashboard')}
+                    />
+                    {/* Public WorkSpaces */}
+                    <Chip
+                        sx={STYLES_MENU_BOARD_BAR}
+                        icon={<VpnLockIcon />}
+                        label="Public WorkSpace"
+                        onClick={() => console.log('This is Public WorkSpace')}
+                    />
+                    {/* Add to Google Drive */}
+                    <Chip
+                        sx={STYLES_MENU_BOARD_BAR}
+                        icon={<AddToDriveIcon />}
+                        label="Add to Google Drive"
+                        onClick={() => console.log('This is Google Drive')}
+                    />
+                    {/* Automation */}
+                    <Chip
+                        sx={STYLES_MENU_BOARD_BAR}
+                        icon={<AutoAwesomeIcon />}
+                        label="Automation"
+                        onClick={() => console.log('This is Automation')}
+                    />
+                    {/* Automation */}
+                    <Chip
+                        sx={STYLES_MENU_BOARD_BAR}
+                        icon={<FilterListIcon />}
+                        label="Filter"
+                        onClick={() => console.log('This is Filter')}
+                    />
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Button
+                        variant='outlined'
+                        startIcon={<PersonAddAltIcon />}
+                    >
+                        Invite
+                    </Button>
+
+                    <AvatarGroup
+                        max={4}
+                        sx={{
+                            '& .MuiAvatar-root' : {
+                                height: 32,
+                                width: 32,
+                                fontSize: 16
+                            }
+                        }}
+                    >
+                        <Tooltip title='GiaKhang'>
+                            <Avatar
+                                alt='GiaKhang'
+                                src='https://pbs.twimg.com/profile_images/1758508514954391552/ymUgHzSG_400x400.jpg'
+                            />
+                        </Tooltip>
+                        <Tooltip title='ThanhThuy'>
+                            <Avatar
+                                alt='ThanhThuy'
+                                src='https://cdn.24h.com.vn/upload/1-2025/images/2025-01-17/2-1737097800-113-width645height904.jpg'
+                            />
+                        </Tooltip>
+                    </AvatarGroup>
+                </Box>
             </Box>
         </>
     );
