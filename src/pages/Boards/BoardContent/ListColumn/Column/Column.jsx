@@ -19,11 +19,12 @@ import Button from '@mui/material/Button';
 import DragHandleIcon from '@mui/icons-material/DragHandle';import Card from '@mui/material/Card';
 
 import ListCards from './ListCards/ListCards';
+import { mapOrder } from '~/utils/sort';
 
 const COLUMN_HEADER_HEIGHT = '50px';
 const COLUMN_FOOTER_HEIGHT = '56px';
 
-function Column() {
+function Column({ column }) {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     // Trả sự kiện về chỗ cũ
@@ -37,6 +38,8 @@ function Column() {
         setAnchorEl(null);
         buttonRef.current?.focus(); // Trả focus về lại
     };
+
+    const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id');
 
     return (
         <>
@@ -65,7 +68,9 @@ function Column() {
                             fontSize: '1.2rem',
                             fontWeight: '600'
                         }}
-                    >Column Title</Typography>
+                    >
+                        {column?.title}
+                    </Typography>
                     <Box>
                         <Tooltip title='More options'>
                             <IconButton
@@ -134,7 +139,7 @@ function Column() {
                 </Box>
 
                 {/* Import ListCard is here 👇🏼 */}
-                <ListCards />
+                <ListCards cards={orderedCards}/>
                 {/* Import ListCard is here */}
 
                 {/* FOOTER -- 👇🏼👇🏼👇🏼*/}

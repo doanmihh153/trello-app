@@ -11,6 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import { capitalizeFirstLetter } from '~/utils/formatters';
 
 // Sửa biến chung! -- Style
 const STYLES_MENU_BOARD_BAR = {
@@ -23,14 +24,17 @@ const STYLES_MENU_BOARD_BAR = {
     '& .MuiSvgIcon-root': {
         color: 'primary.main'
     },
-
     '&:hover': {
         bgcolor: (theme) => alpha(theme.palette.primary.main, 0.15)
     }
 };
 
 
-function BoardBar() {
+function BoardBar({ board }) {
+
+    // Optional Destructuring 👇🏼
+    // const { board } = props;
+    // const board = props.board;
     return (
         <>
             {/* Navbar - Board Bar */}
@@ -48,14 +52,16 @@ function BoardBar() {
                     <Chip
                         sx={STYLES_MENU_BOARD_BAR}
                         icon={<DashboardIcon />}
-                        label="Dashboard"
+                        // label="Dashboard"  ---> cũ ‼️‼️‼️
+                        label={board?.title}
                         onClick={() => console.log('This is Dashboard')}
                     />
                     {/* Public WorkSpaces */}
                     <Chip
                         sx={STYLES_MENU_BOARD_BAR}
                         icon={<VpnLockIcon />}
-                        label="Public WorkSpace"
+                        // label="Public WorkSpace" ---> cũ ‼️‼️‼️
+                        label={capitalizeFirstLetter(board?.type)}
                         onClick={() => console.log('This is Public WorkSpace')}
                     />
                     {/* Add to Google Drive */}

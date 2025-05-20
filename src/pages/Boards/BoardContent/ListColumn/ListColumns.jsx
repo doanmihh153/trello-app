@@ -4,7 +4,7 @@ import Column from './Column/Column';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 
-function ListColumns() {
+function ListColumns({ columns }) {
 
     return (
         <>
@@ -17,8 +17,14 @@ function ListColumns() {
                 // '&::-webkit-scrollbar-track': { m: 2 }
             }}>
                 {/* Column Import here */}
-                <Column />
-                <Column />
+                {columns?.map(column => {
+                    return (
+                        // Co the co them du lieu
+                        <Column key={column._id} column={column}/>
+                    );
+                })}
+
+                {/* <Column /> --> Fake du lieu */}
 
                 {/* Add Columns */}
                 <Box sx={{

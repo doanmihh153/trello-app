@@ -1,14 +1,11 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import TrelloCard from './Card/Card';
 
 const COLUMN_HEADER_HEIGHT = '50px';
 const COLUMN_FOOTER_HEIGHT = '56px';
 
-function ListCards() {
+function ListCards({ cards }) {
     return (
         <>
             {/* CONTENT -- BOX LIST CARD -- ✍️✍️✍️*/}
@@ -40,8 +37,12 @@ function ListCards() {
                 }
             }}>
                 {/* Card is in here -- ✍️✍️✍️*/}
-                <TrelloCard />
-                <TrelloCard temporaryHideMedia/>
+                {cards?.map((card) => {
+                    return (
+                        <TrelloCard key={card._id} card={card}/>
+                    );
+                })}
+                {/* <TrelloCard temporaryHideMedia/> */}
                 {/* Card is in here -- ✍️✍️✍️*/}
 
             </Box>
