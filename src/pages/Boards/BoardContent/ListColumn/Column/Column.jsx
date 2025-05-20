@@ -18,14 +18,20 @@ import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import Button from '@mui/material/Button';
 import DragHandleIcon from '@mui/icons-material/DragHandle';import Card from '@mui/material/Card';
 
+// dnd-kit -- CSS ✅ ✅ ✅ ✅
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
 import ListCards from './ListCards/ListCards';
 import { mapOrder } from '~/utils/sort';
+
 
 const COLUMN_HEADER_HEIGHT = '50px';
 const COLUMN_FOOTER_HEIGHT = '56px';
 
 function Column({ column }) {
 
+    // Dropdown Menu -- 🚀🚀🚀🚀
     const [anchorEl, setAnchorEl] = React.useState(null);
     // Trả sự kiện về chỗ cũ
     const buttonRef = useRef(null);
@@ -40,11 +46,41 @@ function Column({ column }) {
     };
 
     const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id');
+    // Dropdown Menu -- 🚀🚀🚀🚀
+
+
+    // dnd-kit -- sortable:
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+    } = useSortable({
+        id: column._id,
+        data: { ...column },
+    });
+
+    // CSS -- dnd-kit
+    const dndKitColumnStyle = {
+        // touchAction: 'none',
+        
+        // translate ko bi bien dang --> Giu nguyen -- Linh hoat giua transform && translate
+        transform: CSS.Translate.toString(transform),
+        transition,
+    };
+
 
     return (
         <>
             {/* HEADER -- 🙃🙃🙃*/}
             <Box
+                // Package DND_KIT is here 👇🏼👇🏼👇🏼👇🏼
+                ref={setNodeRef}
+                style={dndKitColumnStyle}
+                {...attributes}
+                {...listeners}
+                // Package DND_KIT is here 👆🏼👆🏼👆🏼👆🏼
                 sx={{
                     minWidth: '300px',
                     maxWidth: '300px',

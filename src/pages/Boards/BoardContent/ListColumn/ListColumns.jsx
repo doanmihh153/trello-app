@@ -4,10 +4,21 @@ import Column from './Column/Column';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 
-function ListColumns({ columns }) {
+// Import SortableContext trong dnd-kit
+import {
+    SortableContext,
+    horizontalListSortingStrategy, // ngang
+    verticalListSortingStrategy // doc
+} from '@dnd-kit/sortable';
 
+function ListColumns({ columns }) {
+    // Sortable Context yeu cau context dang items la mot Array ['id-1', 'id-2', ...] --> (khong phai dang nay!) [{ id:'id-1' }]
+    // Nen Map du lieu ra --> [ Array ] chu dung de { Object }
     return (
-        <>
+        <SortableContext
+            items={columns?.map( column => column._id )}
+            strategy={horizontalListSortingStrategy} // tối ưu kéo thả theo kéo thả :) --> horizontal -> Ngang -- Doc --> vertical
+        >
             <Box sx={{
                 bgcolor: 'inherit', // Kế thừa: inherit
                 width: '100%', height: '100%',
@@ -50,7 +61,7 @@ function ListColumns({ columns }) {
                     </Button>
                 </Box>
             </Box>
-        </>
+        </SortableContext>
     );
 }
 
