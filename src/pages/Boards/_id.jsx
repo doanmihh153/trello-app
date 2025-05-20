@@ -1,9 +1,11 @@
 // Đây là những Import mới ‼️ ‼️ ‼️ ‼️
 import Container from '@mui/material/Container';
 // import Box from '@mui/material/Box';
-import AppBar from '~/components/AppBar';
-import BoardBar from './BoardBar';
-import BoardContent from './BoardContent';
+import AppBar from '~/components/AppBar/AppBar';
+import BoardBar from './BoardBar/BoardBar';
+import BoardContent from './BoardContent/BoardContent';
+import { mockData } from '~/apis/mockAPI';
+
 
 function Board() {
     return (
@@ -13,9 +15,9 @@ function Board() {
                 {/* App Bar - Header */}
                 <AppBar />
                 {/* Board Bar - Header*/}
-                <BoardBar />
+                <BoardBar board={mockData?.board}/>
                 {/* Board Content */}
-                <BoardContent />
+                <BoardContent board={mockData?.board}/>
             </Container>
         </>
     );

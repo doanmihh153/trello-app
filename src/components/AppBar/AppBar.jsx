@@ -13,7 +13,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import { ReactComponent as TrelloLogo } from '~/assets/trelloLogo.svg'; // import kieu Plugin ✅
 import Typography from '@mui/material/Typography';
 
-import ModeSelect from '~/components/ModeSelects';
+import ModeSelect from '~/components/ModeSelects/ModeSelects';
 import WorkSpaces from './Menus/WorkSpace';
 import Recent from './Menus/Recent';
 import Template from './Menus/Template';

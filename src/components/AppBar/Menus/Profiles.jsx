@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
@@ -32,7 +32,11 @@ export default function Profile() {
                         aria-controls={open ? 'account-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}>
-                        <Avatar sx={{ width: 32, height: 32 }} src="https://hotgirlviet.vn/wp-content/uploads/2023/05/3.jpg"/>
+                        <Avatar
+                            sx={{ width: 32, height: 32 }}
+                            // src="https://hotgirlviet.vn/wp-content/uploads/2023/05/3.jpg"
+                            src='../public/meme1.JPG'
+                        />
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -52,7 +56,7 @@ export default function Profile() {
                             '& .MuiAvatar-root': {
                                 width: 32,
                                 height: 32,
-                                ml: -0.5,
+                                ml: - 0.5,
                                 mr: 1,
                             },
                             '&::before': {
@@ -73,10 +77,16 @@ export default function Profile() {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
                 <MenuItem onClick={handleClose}>
-                    <Avatar src="https://hotgirlviet.vn/wp-content/uploads/2023/05/3.jpg"/> Profile
+                    <Avatar
+                        // src="https://hotgirlviet.vn/wp-content/uploads/2023/05/3.jpg"
+                        src='../public/meme2.JPG'
+                    /> Profile
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                    <Avatar src="https://hotgirlviet.vn/wp-content/uploads/2023/05/4.jpg"/> My account
+                    <Avatar
+                        // src="https://hotgirlviet.vn/wp-content/uploads/2023/05/4.jpg"
+                        src='../public/meme3.JPG'
+                    /> My account
                 </MenuItem>
                 <Divider />
                 <MenuItem onClick={handleClose}>

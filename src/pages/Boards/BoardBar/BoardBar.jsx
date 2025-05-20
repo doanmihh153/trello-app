@@ -11,6 +11,7 @@ import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import { capitalizeFirstLetter } from '~/utils/formatters';
 
 // Sửa biến chung! -- Style
 const STYLES_MENU_BOARD_BAR = {
@@ -23,14 +24,17 @@ const STYLES_MENU_BOARD_BAR = {
     '& .MuiSvgIcon-root': {
         color: 'primary.main'
     },
-
     '&:hover': {
         bgcolor: (theme) => alpha(theme.palette.primary.main, 0.15)
     }
 };
 
 
-function BoardBar() {
+function BoardBar({ board }) {
+
+    // Optional Destructuring 👇🏼
+    // const { board } = props;
+    // const board = props.board;
     return (
         <>
             {/* Navbar - Board Bar */}
@@ -48,14 +52,16 @@ function BoardBar() {
                     <Chip
                         sx={STYLES_MENU_BOARD_BAR}
                         icon={<DashboardIcon />}
-                        label="Dashboard"
+                        // label="Dashboard"  ---> cũ ‼️‼️‼️
+                        label={board?.title}
                         onClick={() => console.log('This is Dashboard')}
                     />
                     {/* Public WorkSpaces */}
                     <Chip
                         sx={STYLES_MENU_BOARD_BAR}
                         icon={<VpnLockIcon />}
-                        label="Public WorkSpace"
+                        // label="Public WorkSpace" ---> cũ ‼️‼️‼️
+                        label={capitalizeFirstLetter(board?.type)}
                         onClick={() => console.log('This is Public WorkSpace')}
                     />
                     {/* Add to Google Drive */}
@@ -98,16 +104,18 @@ function BoardBar() {
                             }
                         }}
                     >
-                        <Tooltip title='GiaKhang'>
+                        <Tooltip title='Minh đen'>
                             <Avatar
-                                alt='GiaKhang'
-                                src='https://pbs.twimg.com/profile_images/1758508514954391552/ymUgHzSG_400x400.jpg'
+                                alt='Minh đen'
+                                // src='https://pbs.twimg.com/profile_images/1758508514954391552/ymUgHzSG_400x400.jpg'
+                                src='../public/meme2.JPG'
                             />
                         </Tooltip>
-                        <Tooltip title='ThanhThuy'>
+                        <Tooltip title='Minh đầu đinh'>
                             <Avatar
-                                alt='ThanhThuy'
-                                src='https://cdn.24h.com.vn/upload/1-2025/images/2025-01-17/2-1737097800-113-width645height904.jpg'
+                                alt='Minh đầu đinh'
+                                // src='https://cdn.24h.com.vn/upload/1-2025/images/2025-01-17/2-1737097800-113-width645height904.jpg'
+                                src='../public/meme3.JPG'
                             />
                         </Tooltip>
                     </AvatarGroup>
