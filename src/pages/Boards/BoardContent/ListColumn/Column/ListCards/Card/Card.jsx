@@ -35,6 +35,7 @@ function TrelloCard({ card }) {
         transform: CSS.Translate.toString(transform),
         transition,
         opacity: isDragging ? 0.5 : undefined,
+        border: isDragging ? '1px solid #16a085' : undefined,
     };
     const shouldShowCardAction = () => {
         return (
@@ -61,7 +62,7 @@ function TrelloCard({ card }) {
                 <CardMedia
                     sx={{ height: 140 }}
                     image={card?.cover} // Khai báo ảnh
-                    // title='Minh và khầy'
+                    title={card?.description}
                 />
                 <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
                     <Typography variant="body1" component="div">
