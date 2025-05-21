@@ -13,8 +13,19 @@ import {
     TouchSensor,
     useSensor,
     useSensors,
+    DragOverlay,
+    defaultDropAnimationSideEffects,
 } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
+import Column from './ListColumn/Column/Column';
+import TrelloCard from './ListColumn/Column/ListCards/Card/Card';
+
+
+// ACTIVE:
+const ACTIVE_DRAG_ITEM_TYPE = {
+    COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
+    CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
+};
 
 
 function BoardContent({ board }) {
@@ -27,6 +38,23 @@ function BoardContent({ board }) {
         const orderedColumns = mapOrder(board?.columns, board?.columnOrderIds, board?._id);
         setOrderedColumnsState(orderedColumns);
     }, [board]);
+
+    // Phan biet column || card duoc drag --> Lien quan den onDrag
+    const [activeDragItemsId, setActiveDragItemsId] = useState(null);
+    const [activeDragItemsType, setActiveDragItemsType] = useState(null);
+    const [activeDragItemsData, setActiveDragItemsData] = useState(null);
+
+    // on Drag Start functions
+    const handleDragStart = (e) => {
+        setActiveDragItemsId(e?.active?.id);
+        // Neu columnID dang keo == column -> la column || neu columnID dang keo == card --> Card
+        setActiveDragItemsType(e?.active?.data?.current?.columnId
+            ? ACTIVE_DRAG_ITEM_TYPE.CARD : ACTIVE_DRAG_ITEM_TYPE.COLUMN
+        );
+        setActiveDragItemsData(e?.active?.data?.current);
+        console.log('handleDragStart: ', e);
+    };
+
 
     // DragEnd Function: -- Xu ly luu tru keo tha!!
     const handleDragEnd = (event) => {
@@ -59,6 +87,11 @@ function BoardContent({ board }) {
             // In ra console.log -->
             console.log('Drag Success ✅ ✅ ✅');
         };
+
+        // Ham Start
+        setActiveDragItemsId(null);
+        setActiveDragItemsType(null);
+        setActiveDragItemsData(null);
     };
 
     // Xu ly CLick ! 🙃
@@ -77,8 +110,24 @@ function BoardContent({ board }) {
     // const sensors = useSensors(pointerSensor); // Cam bien --> Cam ung...
     const sensors = useSensors(mouserSensor, touchSensor);
 
+
+    // Xử lý CSS DropShadow in Column
+    const dropAnimation = {
+        sideEffects: defaultDropAnimationSideEffects({
+            styles: {
+                active: {
+                    opacity: '0.5'
+                },
+            },
+        }),
+    };
+
     return (
-        <DndContext onDragEnd={handleDragEnd} sensors={sensors} >
+        <DndContext
+            onDragEnd={handleDragEnd}
+            onDragStart={handleDragStart}
+            sensors={sensors}
+        >
             {/* Content */}
             <Box sx={{
                 backgroundColor: 'primary.main',
@@ -87,6 +136,15 @@ function BoardContent({ board }) {
                 p: '5px 0',
             }}>
                 <ListColumns columns={orderedColumnsState} key={board._id}/>
+                <DragOverlay dropAnimation={dropAnimation}>
+                    {!activeDragItemsType && null}
+                    {(activeDragItemsId && activeDragItemsType === ACTIVE_DRAG_ITEM_TYPE.COLUMN)
+                    && <Column column={activeDragItemsData}
+                    />}
+                    {(activeDragItemsId && activeDragItemsType === ACTIVE_DRAG_ITEM_TYPE.CARD)
+                    && <TrelloCard card={activeDragItemsData}
+                    />}
+                </DragOverlay>
             </Box>
         </DndContext>
     );

@@ -27,10 +27,10 @@ export const mockData = {
                     },
                     { _id: 'card-id-02', boardId: 'board-id-01', columnId: 'column-id-01', title: 'Title of card 02', description: null, cover: '/public/meme1.jpg', memberIds: [], comments: [], attachments: [] },
                     { _id: 'card-id-03', boardId: 'board-id-01', columnId: 'column-id-01', title: 'Title of card 03', description: null, cover: '/public/meme2.jpg', memberIds: [], comments: [], attachments: [] },
-                    { _id: 'card-id-04', boardId: 'board-id-01', columnId: 'column-id-01', title: 'Title of card 04', description: null, cover: './minhvakhay.jpg', memberIds: [], comments: [], attachments: [] },
+                    { _id: 'card-id-04', boardId: 'board-id-01', columnId: 'column-id-01', title: 'Title of card 04', description: null, cover: '/public/minhvakhay.jpg', memberIds: [], comments: [], attachments: [] },
                     { _id: 'card-id-05', boardId: 'board-id-01', columnId: 'column-id-01', title: 'Title of card 05', description: null, cover: '/public/meme3.jpg', memberIds: [], comments: [], attachments: [] },
                     { _id: 'card-id-06', boardId: 'board-id-01', columnId: 'column-id-01', title: 'Title of card 06', description: null, cover: '/public/meme2.jpg', memberIds: [], comments: [], attachments: [] },
-                    { _id: 'card-id-07', boardId: 'board-id-01', columnId: 'column-id-01', title: 'Title of card 07', description: null, cover: './minhvakhay.jpg', memberIds: [], comments: [], attachments: [] }
+                    { _id: 'card-id-07', boardId: 'board-id-01', columnId: 'column-id-01', title: 'Title of card 07', description: null, cover: '/public/minhvakhay.jpg', memberIds: [], comments: [], attachments: [] }
                 ]
             },
             {

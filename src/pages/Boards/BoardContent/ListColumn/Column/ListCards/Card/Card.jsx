@@ -9,28 +9,59 @@ import GroupIcon from '@mui/icons-material/Group';
 import CommentIcon from '@mui/icons-material/Comment';
 import ShareIcon from '@mui/icons-material/Share';
 
+// dnd-kit -- CSS ✅ ✅ ✅ ✅
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 function TrelloCard({ card }) {
 
+    // dnd-kit -- sortable:
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging,
+    } = useSortable({
+        id: card._id,
+        data: { ...card },
+    });
+
+    // CSS -- dnd-kit
+    const dndKitCardStyle = {
+        // touchAction: 'none',
+        // translate ko bi bien dang --> Giu nguyen -- Linh hoat giua transform && translate
+        transform: CSS.Translate.toString(transform),
+        transition,
+        opacity: isDragging ? 0.5 : undefined,
+    };
     const shouldShowCardAction = () => {
         return (
             !!card?.memberIds?.length ||
             !!card?.comments?.length ||
-            !! card?.attachments?.length
+            !!card?.attachments?.length
         );
     };
 
     return (
         <>
-            <Card sx={{
-                cursor: 'pointer',
-                boxShadow: '0 1px 1px rgba(0, 0, 0, 0.1)',
-                overflow: 'unset',
-            }}>
+            <Card
+                // Package DND_KIT is here 👇🏼👇🏼👇🏼👇🏼
+                ref={setNodeRef}
+                style={dndKitCardStyle}
+                {...attributes}
+                {...listeners}
+                // Package DND_KIT is here 👆🏼👆🏼👆🏼👆🏼
+                sx={{
+                    cursor: 'pointer',
+                    boxShadow: '0 1px 1px rgba(0, 0, 0, 0.1)',
+                    overflow: 'unset',
+                }}>
                 <CardMedia
                     sx={{ height: 140 }}
                     image={card?.cover} // Khai báo ảnh
-                    title='Minh và khầy'
+                    // title='Minh và khầy'
                 />
                 <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
                     <Typography variant="body1" component="div">
