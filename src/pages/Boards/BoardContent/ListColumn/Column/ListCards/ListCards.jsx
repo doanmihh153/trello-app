@@ -1,5 +1,11 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+// SortableContext
+import {
+    SortableContext,
+    verticalListSortingStrategy // doc
+} from '@dnd-kit/sortable';
+
 import TrelloCard from './Card/Card';
 
 const COLUMN_HEADER_HEIGHT = '50px';
@@ -7,7 +13,10 @@ const COLUMN_FOOTER_HEIGHT = '56px';
 
 function ListCards({ cards }) {
     return (
-        <>
+        <SortableContext
+            items={cards?.map( column => column._id )}
+            strategy={verticalListSortingStrategy} // tối ưu kéo thả theo kéo thả :) --> horizontal -> Ngang -- Doc --> vertical
+        >
             {/* CONTENT -- BOX LIST CARD -- ✍️✍️✍️*/}
             <Box sx={{
                 p: '0 5px',
@@ -47,7 +56,7 @@ function ListCards({ cards }) {
 
             </Box>
 
-        </>
+        </SortableContext>
     );
 }
 

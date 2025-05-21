@@ -8,7 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import {
     SortableContext,
     horizontalListSortingStrategy, // ngang
-    verticalListSortingStrategy // doc
+    //verticalListSortingStrategy // doc
 } from '@dnd-kit/sortable';
 
 function ListColumns({ columns }) {

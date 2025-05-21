@@ -56,6 +56,7 @@ function Column({ column }) {
         setNodeRef,
         transform,
         transition,
+        isDragging, // De lai bong :) hieu nom na la nhu vay :)
     } = useSortable({
         id: column._id,
         data: { ...column },
@@ -64,23 +65,24 @@ function Column({ column }) {
     // CSS -- dnd-kit
     const dndKitColumnStyle = {
         // touchAction: 'none',
-        
         // translate ko bi bien dang --> Giu nguyen -- Linh hoat giua transform && translate
         transform: CSS.Translate.toString(transform),
-        transition,
+        transition, height: '100%',
+        opacity: isDragging ? 0.5 : undefined,
     };
 
 
     return (
-        <>
+        <div
+            // Package DND_KIT is here 👇🏼👇🏼👇🏼👇🏼
+            ref={setNodeRef}
+            style={dndKitColumnStyle}
+            {...attributes}
+            // Package DND_KIT is here 👆🏼👆🏼👆🏼👆🏼
+        >
             {/* HEADER -- 🙃🙃🙃*/}
             <Box
-                // Package DND_KIT is here 👇🏼👇🏼👇🏼👇🏼
-                ref={setNodeRef}
-                style={dndKitColumnStyle}
-                {...attributes}
                 {...listeners}
-                // Package DND_KIT is here 👆🏼👆🏼👆🏼👆🏼
                 sx={{
                     minWidth: '300px',
                     maxWidth: '300px',
@@ -195,7 +197,7 @@ function Column({ column }) {
                 </Box>
             </Box>
 
-        </>
+        </div>
     );
 }
 
