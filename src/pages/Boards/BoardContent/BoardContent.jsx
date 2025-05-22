@@ -2,8 +2,6 @@
 import React from 'react';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import Box from '@mui/material/Box';
-import ListColumns from './ListColumn/ListColumns';
-import { mapOrder } from '~/utils/sort';
 
 // Import Package DND-kit
 import {
@@ -22,11 +20,13 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 // package lodash
-import { cloneDeep } from 'lodash';
+import { cloneDeep, isEmpty } from 'lodash';
 
 import Column from './ListColumn/Column/Column';
 import TrelloCard from './ListColumn/Column/ListCards/Card/Card';
-
+import ListColumns from './ListColumn/ListColumns';
+import { mapOrder } from '~/utils/sort';
+import { generatePlaceholderCard } from '~/utils/formatters';
 
 // ACTIVE:
 const ACTIVE_DRAG_ITEM_TYPE = {
@@ -102,6 +102,11 @@ function BoardContent({ board }) {
                 // Delete card in column drag active (xoa cac o column active (cu) --> luc keo tha de sang card khac)
                 nextActiveColumns.cards = nextActiveColumns.cards.filter(card => card._id !== aDraggingCardId);
 
+                // Them card giu cho neu column rong -- Card ao!!!
+                if (isEmpty(nextActiveColumns.cards)) {
+                    nextActiveColumns.cards = [generatePlaceholderCard(nextActiveColumns)];
+                    console.log('Column Empty! ‼️ -- Card cuoi cung bi keo di');
+                };
                 // Update card in new column (cap nhat mang moi)
                 nextActiveColumns.cardOrderIds = nextActiveColumns.cards.map(card => card._id);
             };
@@ -117,6 +122,8 @@ function BoardContent({ board }) {
                 // Update Card in new Column --> UI
                 nextOverColumns.cards = nextOverColumns.cards.toSpliced(newCardIndex, 0, rebuild_activeDraggingCardData );
 
+                // Xoa card giu cho trong Column neu it nhat 1 card trong column duoc them vao
+                nextOverColumns.cards = nextOverColumns.cards.filter(card => !card.FE_PlaceholderCard);
                 // Update Array new
                 nextOverColumns.cardOrderIds = nextOverColumns.cards.map(card => card._id);
             };
