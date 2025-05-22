@@ -1,6 +1,6 @@
 // Board Content
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Box from '@mui/material/Box';
 import ListColumns from './ListColumn/ListColumns';
 import { mapOrder } from '~/utils/sort';
@@ -15,6 +15,10 @@ import {
     useSensors,
     DragOverlay,
     defaultDropAnimationSideEffects,
+    closestCorners,
+    pointerWithin,
+    // rectIntersection,
+    getFirstCollision
 } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 // package lodash
@@ -46,8 +50,10 @@ function BoardContent({ board }) {
     const [activeDragItemsId, setActiveDragItemsId] = useState(null);
     const [activeDragItemsType, setActiveDragItemsType] = useState(null);
     const [activeDragItemsData, setActiveDragItemsData] = useState(null);
-
     const [oldColumnWhenDraggingCard, setOldColumnWhenDraggingCard] = useState(null);
+
+    const lastOverId = useRef(null);
+
     // on Drag Start functions
     const handleDragStart = (event) => {
         setActiveDragItemsId(event?.active?.id);
@@ -271,11 +277,48 @@ function BoardContent({ board }) {
         };
     };
 
+    // args == arguments --> doi so va tham so
+    const collisionDetectionStrategy = useCallback((args) => {
+        if (activeDragItemsType === ACTIVE_DRAG_ITEM_TYPE.COLUMN) {
+            return closestCorners({ ...args });
+        };
+        // tim diem va cham
+        const pointerIntersections = pointerWithin(args);
+
+        if (!pointerIntersections?.length) return;
+
+        // const intersections =
+        // pointerIntersections?.length > 0
+        //     ? pointerIntersections
+        //     : rectIntersection(args);
+
+        let overId = getFirstCollision(pointerIntersections, 'id');
+
+        if (overId) {
+
+            const checkColumn = orderedColumnsState.find(column => column._id === overId);
+            if (checkColumn) {
+                overId = closestCorners({
+                    ...args,
+                    droppableContainers: args.droppableContainers.filter(
+                        container =>
+                            (container.id !== overId)
+                            && checkColumn?.cardOrderIds.includes(container.id)),
+                })[0]?.id;
+            };
+            lastOverId.current = overId;
+            return [{ id: overId }];
+        }
+        return lastOverId.current ? [{ id: lastOverId.current }] : [];
+
+    }, [activeDragItemsType, orderedColumnsState]);
+
     return (
         <DndContext
             onDragEnd={handleDragEnd}
             onDragStart={handleDragStart}
             onDragOver={handleDragOver}
+            collisionDetection={collisionDetectionStrategy}
             sensors={sensors}
         >
             {/* Content */}
