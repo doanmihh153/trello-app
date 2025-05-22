@@ -64,6 +64,59 @@ function BoardContent({ board }) {
         console.log('handleDragStart: ', event);
     };
 
+    // Clean code ----- ✅ ✅ ✅ ✅
+    // Cap nhap state khi di chuyen card kahcs nhau!
+    const moveCardBetweenDifferentColumns = (
+        oColumn, oCardId,
+        active, over,
+        aColumn, aDraggingCardId,
+        aDraggingCardData
+    ) => {
+        setOrderedColumnsState(prevColumns => {
+            // tim vi tri index cua card!
+            const oCardIndex = oColumn?.cards?.findIndex(card => card._id === oCardId);
+            console.log('index card: ', oCardIndex);
+
+            let newCardIndex;
+
+            const isBelowOverItems =
+                active.rect.current.translated &&
+                active.rect.current.translated.top > over.rect.to+ over.rect.height;
+
+            const modifier = isBelowOverItems ? 1 : 0;
+            newCardIndex = oCardIndex >= 0 ? oCardIndex + modifier : oColumn?.cards.length + 1;
+
+            // clone Array orderedColumnsState old --> New Array --> update new orderedColumnsState
+            const nextColumn = cloneDeep(prevColumns);
+
+            const nextActiveColumns = nextColumn.find(column => column._id === aColumn._id);
+            const nextOverColumns = nextColumn.find(column => column._id === oColumn._id);
+
+            if (nextActiveColumns) {
+                // Delete card in column drag active (xoa cac o column active (cu) --> luc keo tha de sang card khac)
+                nextActiveColumns.cards = nextActiveColumns.cards.filter(card => card._id !== aDraggingCardId);
+
+                // Update card in new column (cap nhat mang moi)
+                nextActiveColumns.cardOrderIds = nextActiveColumns.cards.map(card => card._id);
+            };
+
+            if (nextOverColumns) {
+                // kiem tra ton tai cua card
+                nextOverColumns.cards = nextOverColumns.cards.filter(card => card._id !== aDraggingCardId);
+
+                const rebuild_activeDraggingCardData = {
+                    ...aDraggingCardData,
+                    columnId: nextOverColumns._id,
+                };
+                // Update Card in new Column --> UI
+                nextOverColumns.cards = nextOverColumns.cards.toSpliced(newCardIndex, 0, rebuild_activeDraggingCardData );
+
+                // Update Array new
+                nextOverColumns.cardOrderIds = nextOverColumns.cards.map(card => card._id);
+            };
+            return nextColumn;
+        });
+    };
 
     // DragEnd Function: -- Xu ly luu tru keo tha!!
     const handleDragEnd = (event) => {
@@ -87,50 +140,15 @@ function BoardContent({ board }) {
             if (!aColumn || !oColumn) return; // Neu khong ton t ai 1 trong 2 thi ko lam gi :)) -> khong bi crash web
             if (oldColumnWhenDraggingCard._id !== oColumn._id) {
                 console.log('Drag card in two columns or! 😄😄😄');
-                setOrderedColumnsState(prevColumns => {
-                    // tim vi tri index cua card!
-                    const oCardIndex = oColumn?.cards?.findIndex(card => card._id === oCardId);
-                    console.log('index card: ', oCardIndex);
-
-                    let newCardIndex;
-
-                    const isBelowOverItems =
-                        active.rect.current.translated &&
-                        active.rect.current.translated.top > over.rect.to+ over.rect.height;
-
-                    const modifier = isBelowOverItems ? 1 : 0;
-                    newCardIndex = oCardIndex >= 0 ? oCardIndex + modifier : oColumn?.cards.length + 1;
-
-                    // clone Array orderedColumnsState old --> New Array --> update new orderedColumnsState
-                    const nextColumn = cloneDeep(prevColumns);
-
-                    const nextActiveColumns = nextColumn.find(column => column._id === aColumn._id);
-                    const nextOverColumns = nextColumn.find(column => column._id === oColumn._id);
-
-                    if (nextActiveColumns) {
-                        // Delete card in column drag active (xoa cac o column active (cu) --> luc keo tha de sang card khac)
-                        nextActiveColumns.cards = nextActiveColumns.cards.filter(card => card._id !== aDraggingCardId);
-
-                        // Update card in new column (cap nhat mang moi)
-                        nextActiveColumns.cardOrderIds = nextActiveColumns.cards.map(card => card._id);
-                    };
-
-                    if (nextOverColumns) {
-                        // kiem tra ton tai cua card
-                        nextOverColumns.cards = nextOverColumns.cards.filter(card => card._id !== aDraggingCardId);
-
-                        const rebuild_activeDraggingCardData = {
-                            ...aDraggingCardData,
-                            columnId: nextOverColumns._id,
-                        };
-                        // Update Card in new Column --> UI
-                        nextOverColumns.cards = nextOverColumns.cards.toSpliced(newCardIndex, 0, rebuild_activeDraggingCardData );
-
-                        // Update Array new
-                        nextOverColumns.cardOrderIds = nextOverColumns.cards.map(card => card._id);
-                    };
-                    return nextColumn;
-                });
+                moveCardBetweenDifferentColumns(
+                    oColumn,
+                    oCardId,
+                    active,
+                    over,
+                    aColumn,
+                    aDraggingCardId,
+                    aDraggingCardData
+                );
             } else {
                 console.log('Drag card in a column 👌🏼👌🏼👌🏼');
 
@@ -241,45 +259,15 @@ function BoardContent({ board }) {
 
         // neu 2 column kha nhau thi chay!
         if (aColumn._id !== oColumn._id) {
-            setOrderedColumnsState(prevColumns => {
-                // tim vi tri index cua card!
-                const oCardIndex = oColumn?.cards?.findIndex(card => card._id === oCardId);
-                console.log('index card: ', oCardIndex);
-
-                let newCardIndex;
-
-                const isBelowOverItems =
-                    active.rect.current.translated &&
-                    active.rect.current.translated.top > over.rect.to+ over.rect.height;
-
-                const modifier = isBelowOverItems ? 1 : 0;
-                newCardIndex = oCardIndex >= 0 ? oCardIndex + modifier : oColumn?.cards.length + 1;
-
-                // clone Array orderedColumnsState old --> New Array --> update new orderedColumnsState
-                const nextColumn = cloneDeep(prevColumns);
-
-                const nextActiveColumns = nextColumn.find(column => column._id === aColumn._id);
-                const nextOverColumns = nextColumn.find(column => column._id === oColumn._id);
-
-                if (nextActiveColumns) {
-                    // Delete card in column drag active (xoa cac o column active (cu) --> luc keo tha de sang card khac)
-                    nextActiveColumns.cards = nextActiveColumns.cards.filter(card => card._id !== aDraggingCardId);
-
-                    // Update card in new column (cap nhat mang moi)
-                    nextActiveColumns.cardOrderIds = nextActiveColumns.cards.map(card => card._id);
-                };
-
-                if (nextOverColumns) {
-                    // kiem tra ton tai cua card
-                    nextOverColumns.cards = nextOverColumns.cards.filter(card => card._id !== aDraggingCardId);
-                    // Update Card in new Column --> UI
-                    nextOverColumns.cards = nextOverColumns.cards.toSpliced(newCardIndex, 0, aDraggingCardData );
-
-                    // Update Array new
-                    nextOverColumns.cardOrderIds = nextOverColumns.cards.map(card => card._id);
-                };
-                return nextColumn;
-            });
+            moveCardBetweenDifferentColumns(
+                oColumn,
+                oCardId,
+                active,
+                over,
+                aColumn,
+                aDraggingCardId,
+                aDraggingCardData
+            );
         };
     };
 
