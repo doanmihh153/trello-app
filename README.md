@@ -1,17 +1,100 @@
-# React + Vite
+# 📢 CẢNH BÁO QUAN TRỌNG
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 🚨 Clone này được xây dựng với mục đích **học tập**, **phi thương mại**, **không kinh doanh**. Mọi bản quyền thuộc về Trello. Hãy truy cập trang chính thức: [https://trello.com/home](https://trello.com/home) để sử dụng dịch vụ chính chủ.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 📘 Tài liệu các thư viện sử dụng trong dự án Frontend (React + Vite)
 
-## Expanding the ESLint configuration
+## 🚀 Scripts sử dụng
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+# Chạy development server
+yarn dev
 
-### BASE Cơ bản:
+# Build production
+yarn build
+
+# Preview production build
+yarn preview
+
+# Lint toàn bộ source code
+yarn lint
+```
+
+## 1. Dependencies
+
+### `@dnd-kit/*`
+
+* **Chức năng:** DnD Kit là thư viện Drag and Drop cho React, hiện đại và có khả năng tuỳ biến cao.
+* **Gói gồm:**
+
+  * `@dnd-kit/core`: core engine.
+  * `@dnd-kit/sortable`: hỗ trợ kéo thả và sắp xếp.
+  * `@dnd-kit/utilities`: tiện ích đi kèm.
+
+### `@emotion/react` & `@emotion/styled`
+
+* **Chức năng:** Styled components cho React, thường dùng với Material UI để viết CSS-in-JS.
+* **So sánh:** Tương tự như styled-components, nhưng nhẹ hơn.
+
+### `@mui/material` & `@mui/icons-material`
+
+* **Material UI:** Bộ component UI hiện đại theo tiêu chuẩn Google Material Design.
+* **Ưu điểm:** Dễ dùng, responsive, tùy chỉnh linh hoạt.
+
+### `lodash`
+
+* **Chức năng:** Thư viện tiện ích hỗ trợ xử lý mảng, object, function, clone sâu, debounce, throttle,...
+* **Lưu ý:** Chỉ import function cần dùng để tối ưu bundle:
+
+  ```js
+  import debounce from 'lodash/debounce'
+  ```
+
+### `react` & `react-dom`
+
+* **React 19**: Phiên bản mới nhất với cải tiến về rendering và hooks.
+* **React DOM**: Render tree vào DOM.
+
+## 2. DevDependencies
+
+### `vite`
+
+* **Bundler:** Siêu nhanh, thay thế Webpack.
+* **Ưu điểm:** ESM-native, HMR tốt, build nhanh.
+
+### `@vitejs/plugin-react-swc`
+
+* **Chức năng:** Hỗ trợ JSX và React Fast Refresh, dùng compiler SWC thay vì Babel để tăng tốc độ build.
+
+### `vite-plugin-eslint`
+
+* **Tích hợp ESLint vào build pipeline của Vite.**
+
+### `vite-plugin-svgr`
+
+* **Chức năng:** Import SVG dưới dạng React Component:
+
+  ```js
+  import { ReactComponent as Logo } from './logo.svg'
+  ```
+
+### `eslint`, `eslint-plugin-*`
+
+* **Công dụng:** Kiểm tra và enforce chuẩn code.
+
+  * `eslint-plugin-react`: rule cho React.
+  * `eslint-plugin-react-hooks`: kiểm tra hook đúng quy tắc.
+  * `eslint-plugin-unused-imports`: tự cảnh báo import không dùng.
+  * `@eslint/js`, `globals`: hỗ trợ cấu hình rule JS và global var.
+
+### `@types/react`, `@types/react-dom`
+
+* **Type support:** Cho TypeScript (hoặc dùng VSCode IntelliSense).
+
+
+### BASE Cơ bản của Eslint:
 
 ```bash
 // eslint.config.js (Flat Config - Vite/ESLint 9+ style)
@@ -99,4 +182,36 @@ export default [
 ];
 ```
 
+---
+
+## 🧠 Gợi ý cấu trúc thư mục
+
+```sh
+project-root/
+├── public/
+│   └── index.html
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── hooks/
+│   ├── pages/
+│   ├── services/
+│   ├── utils/
+│   └── main.jsx
+├── .eslintrc.js
+├── vite.config.js
+└── package.json
+```
+
+---
+
+## 📚 Tài liệu tham khảo
+
+* [Vite](https://vitejs.dev/)
+* [React](https://react.dev/)
+* [Dnd-kit](https://docs.dndkit.com/)
+* [Material UI](https://mui.com/)
+* [Emotion](https://emotion.sh/)
+* [Lodash](https://lodash.com/)
+* [ESLint](https://eslint.org/)
 
