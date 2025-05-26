@@ -1,13 +1,27 @@
 // Đây là những Import mới ‼️ ‼️ ‼️ ‼️
+import { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 // import Box from '@mui/material/Box';
 import AppBar from '~/components/AppBar/AppBar';
 import BoardBar from './BoardBar/BoardBar';
 import BoardContent from './BoardContent/BoardContent';
-import { mockData } from '~/apis/mockAPI';
-
+// import { mockData } from '~/apis/mockAPI';
+import { fetchBoardDetailsAPI } from '~/apis';
 
 function Board() {
+
+    const [board, setBoard] = useState(null);
+
+    useEffect(() => {
+        // Cái này là fix cứng
+        const boardId = '68349d5772aa9e04386219bf';
+        // CallApi
+        fetchBoardDetailsAPI(boardId)
+            .then((board) => {
+                setBoard(board);
+            });
+    }, []);
+
     return (
         <>
             {/* chiều rộng tối đa -> disableGutters && maxWidth==false */}
@@ -15,9 +29,9 @@ function Board() {
                 {/* App Bar - Header */}
                 <AppBar />
                 {/* Board Bar - Header*/}
-                <BoardBar board={mockData?.board}/>
+                <BoardBar board={board}/>
                 {/* Board Content */}
-                <BoardContent board={mockData?.board}/>
+                <BoardContent board={board}/>
             </Container>
         </>
     );

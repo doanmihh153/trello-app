@@ -333,7 +333,7 @@ function BoardContent({ board }) {
                 height: (theme) => theme.trello.boardContentHeight,
                 p: '5px 0',
             }}>
-                <ListColumns columns={orderedColumnsState} key={board._id}/>
+                <ListColumns columns={orderedColumnsState} key={board}/>
                 <DragOverlay dropAnimation={dropAnimation}>
                     {!activeDragItemsType && null}
                     {(activeDragItemsId && activeDragItemsType === ACTIVE_DRAG_ITEM_TYPE.COLUMN)

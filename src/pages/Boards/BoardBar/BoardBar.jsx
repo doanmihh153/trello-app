@@ -49,13 +49,15 @@ function BoardBar({ board }) {
             }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     {/* Dashboard --- */}
-                    <Chip
-                        sx={STYLES_MENU_BOARD_BAR}
-                        icon={<DashboardIcon />}
-                        // label="Dashboard"  ---> cũ ‼️‼️‼️
-                        label={board?.title}
-                        onClick={() => console.log('This is Dashboard')}
-                    />
+                    <Tooltip title= {board?.description} >
+                        <Chip
+                            sx={STYLES_MENU_BOARD_BAR}
+                            icon={<DashboardIcon />}
+                            // label="Dashboard"  ---> cũ ‼️‼️‼️
+                            label={board?.type}
+                            onClick={() => console.log('This is Dashboard')}
+                        />
+                    </Tooltip>
                     {/* Public WorkSpaces */}
                     <Chip
                         sx={STYLES_MENU_BOARD_BAR}

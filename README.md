@@ -45,7 +45,7 @@ yarn lint
 
 ### `lodash`
 
-* **Chức năng:** Thư viện tiện ích hỗ trợ xử lý mảng, object, function, clone sâu, debounce, throttle,...
+* **Chức năng:** Thư viện tiện ích hỗ trợ xử lý mảng, object, function, clone Deep, debounce, throttle,...
 * **Lưu ý:** Chỉ import function cần dùng để tối ưu bundle:
 
   ```js
@@ -93,6 +93,14 @@ yarn lint
 
 * **Type support:** Cho TypeScript (hoặc dùng VSCode IntelliSense).
 
+### `Axios` - Call Api từ Backend
+
+### Sau khi call API bằng `Axios` lần đầu -- Sẽ bị dính CORS -- KHÁC DOMAIN -> Bị Chặn ❌
+
+* **`CORS:`**
+
+- Được sinh ra để chặn truy cập đến **Domain độc hại**
+- Vấn đề này sẽ ở bên `Backend` hay bên `API` --> Qua bên `Backend` xử lý!
 
 ### BASE Cơ bản của Eslint:
 
