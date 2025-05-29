@@ -102,7 +102,7 @@ yarn lint
 - Được sinh ra để chặn truy cập đến **Domain độc hại**
 - Vấn đề này sẽ ở bên `Backend` hay bên `API` --> Qua bên `Backend` xử lý!
 
-### BASE Cơ bản của Eslint:
+### BASE Cơ bản của Eslint
 
 ```bash
 // eslint.config.js (Flat Config - Vite/ESLint 9+ style)
@@ -223,3 +223,6 @@ project-root/
 * [Lodash](https://lodash.com/)
 * [ESLint](https://eslint.org/)
 
+## 📚 Nếu muốn customs Hooks
+
+*[useHooks](https://usehooks.com/)

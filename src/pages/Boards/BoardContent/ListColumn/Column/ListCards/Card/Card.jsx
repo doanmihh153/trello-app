@@ -58,7 +58,11 @@ function TrelloCard({ card }) {
                     cursor: 'pointer',
                     boxShadow: '0 1px 1px rgba(0, 0, 0, 0.1)',
                     overflow: 'unset',
-                    display: card?.FE_PlaceholderCard ? 'none' : 'block'
+                    display: card?.FE_PlaceholderCard ? 'none' : 'block',
+                    border: '1px solid transparent',
+                    '&:hover': {
+                        borderColor: (theme) => theme.palette.primary.main,
+                    },
                 }}>
                 <CardMedia
                     sx={{ height: 140 }}

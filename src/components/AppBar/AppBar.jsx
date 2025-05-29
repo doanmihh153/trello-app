@@ -7,7 +7,9 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Tooltip from '@mui/material/Tooltip';
 import AddIcon from '@mui/icons-material/Add';
-
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
+import CloseIcon from '@mui/icons-material/Close';
 // import trelloLogo from '~/assets/trelloLogo.svg' --> Import kieu cu ‼️‼️
 import SvgIcon from '@mui/material/SvgIcon';
 import { ReactComponent as TrelloLogo } from '~/assets/trelloLogo.svg'; // import kieu Plugin ✅
@@ -18,6 +20,7 @@ import WorkSpaces from './Menus/WorkSpace';
 import Recent from './Menus/Recent';
 import Template from './Menus/Template';
 import Profile from './Menus/Profiles';
+
 
 function AppBar() {
     return (
@@ -53,9 +56,25 @@ function AppBar() {
                 {/* right */}
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <TextField
-                        id="outlined-search"
-                        label="Search..."
+                        label="Enter column title"
                         type="search" size='small'
+                        variant='outlined'
+                        autoFocus
+                        onChange={() => {}}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon />
+                                </InputAdornment>
+                            ), endAdornment: (
+                                <InputAdornment position="end">
+                                    <CloseIcon
+                                        fontSize='small'
+                                        sx={{ color: 'primary.main', cursor: 'pointer' }}
+                                    />
+                                </InputAdornment>
+                            ),
+                        }}
                         sx={{ minWidth: '120px' }}
                     />
                     {/* Components dung nhieu noi! */}

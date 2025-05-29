@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 // SortableContext
 import {
@@ -19,7 +19,7 @@ function ListCards({ cards }) {
         >
             {/* CONTENT -- BOX LIST CARD -- ✍️✍️✍️*/}
             <Box sx={{
-                p: '0 5px',
+                p: '0 5px 5px 5px',
                 m: '0 5px',
                 display: 'flex',
                 flexDirection: 'column',

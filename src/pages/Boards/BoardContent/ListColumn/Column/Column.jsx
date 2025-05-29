@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
@@ -17,7 +17,8 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import Button from '@mui/material/Button';
 import DragHandleIcon from '@mui/icons-material/DragHandle';import Card from '@mui/material/Card';
-
+import TextField from '@mui/material/TextField';
+import CloseIcon from '@mui/icons-material/Close';
 // dnd-kit -- CSS ✅ ✅ ✅ ✅
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -71,6 +72,34 @@ function Column({ column }) {
         opacity: isDragging ? 0.5 : undefined,
     };
 
+    // UI Add card in column
+    const [openNewCardForm, setOpenNewCardForm] = useState(false);
+
+    // Chuyen doi trang thai cua OpenNewColumnForm
+    const toggleOpenNewCardForm = () => {
+        return setOpenNewCardForm(!openNewCardForm);
+    };
+
+    // Save Input:
+    const [addNewCardTitle, setAddNewCardTitle] = useState('');
+
+    const addNewCard = (e) => {
+        if (addNewCardTitle.trim() === '') {
+            console.error('Please enter a valid Card title!');
+            setAddNewCardTitle(''); // Reset input
+            return;
+        }
+
+        // Call API here
+        console.log('Value title: ', addNewCardTitle);
+
+        // Reset input
+        toggleOpenNewCardForm();
+        setAddNewCardTitle(''); // Reset input
+    };
+
+    const colorTextField = (theme) => theme.palette.primary.textBlack;
+    const colorTextField1 = (theme) => theme.palette.primary.main;
 
     return (
         <div
@@ -184,16 +213,83 @@ function Column({ column }) {
                 <Box sx={{
                     height: COLUMN_FOOTER_HEIGHT,
                     p: 1.5,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
                 }}>
-                    <Button startIcon={<AddCardIcon />}>
-                        Add new card
-                    </Button>
-                    <Tooltip title='Drag to move' sx={{ cursor: 'pointer' }}>
-                        <DragHandleIcon />
-                    </Tooltip>
+                    {!openNewCardForm
+                        ? <Box
+                            sx={{
+                                height: '100%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                            }}
+                        >
+                            <Button
+                                onClick={toggleOpenNewCardForm}
+                                startIcon={<AddCardIcon />}>
+                                Add new card
+                            </Button>
+                            <Tooltip title='Drag to move' sx={{ cursor: 'pointer' }}>
+                                <DragHandleIcon />
+                            </Tooltip>
+                        </Box>
+                        : <Box sx={{
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 1,
+                        }}>
+                            <TextField
+                                label="Enter card title"
+                                type="text"
+                                size='small'
+                                variant='outlined'
+                                autoFocus
+                                data-no-dnd='true' // un - drag dndKit
+                                value={addNewCardTitle}
+                                onChange={(e) => {
+                                    // Remove console --> 👇🏼
+                                    console.log('title: ', e.target.value);
+                                    return setAddNewCardTitle(e.target.value);
+                                }}
+                                sx={{
+                                    '& label': { color: colorTextField1 },
+                                    '& input': { color: colorTextField1 },
+                                    '$ label.Mui-focused': { color: colorTextField1 },
+                                    '& .MuiFormLabel-root': { color: colorTextField1 },
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': { borderColor: 'white' },
+                                        '&:hover fieldset': { borderColor: colorTextField1 },
+                                        '&.Mui-focused fieldset': { borderColor: colorTextField1 }
+                                    }
+                                }}
+                            />
+                            <Box sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}>
+                                <Button
+                                    onClick={addNewCard}
+                                    variant='contained'
+                                    color='primary'
+                                    size='small'
+                                    sx={{
+                                        boxShadow: 'none',
+                                        border: '0.5px solid',
+                                        borderColor: (theme) => theme.palette.primary.main,
+                                        '&:hover': { bgcolor: (theme) => theme.palette.primary.main, boxShadow: 'none' }
+                                    }}
+                                >
+                                    Add
+                                </Button>
+                                <CloseIcon
+                                    onClick={toggleOpenNewCardForm}
+                                    fontSize='small'
+                                    sx={{ color: colorTextField1, cursor: 'pointer' }}
+                                />
+                            </Box>
+                        </Box>
+                    }
                 </Box>
             </Box>
 

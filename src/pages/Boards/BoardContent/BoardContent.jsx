@@ -7,8 +7,8 @@ import Box from '@mui/material/Box';
 import {
     DndContext,
     PointerSensor,
-    MouseSensor,
-    TouchSensor,
+    // MouseSensor,
+    // TouchSensor,
     useSensor,
     useSensors,
     DragOverlay,
@@ -18,6 +18,12 @@ import {
     // rectIntersection,
     getFirstCollision
 } from '@dnd-kit/core';
+// Custom event dnd-kit
+import {
+    MouseSensor,
+    TouchSensor,
+} from '~/customs/DndKitCustom';
+
 import { arrayMove } from '@dnd-kit/sortable';
 // package lodash
 import { cloneDeep, isEmpty } from 'lodash';
