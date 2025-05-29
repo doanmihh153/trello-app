@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { toast } from 'react-hot-toast';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
@@ -83,10 +84,10 @@ function Column({ column }) {
     // Save Input:
     const [addNewCardTitle, setAddNewCardTitle] = useState('');
 
-    const addNewCard = (e) => {
-        if (addNewCardTitle.trim() === '') {
-            console.error('Please enter a valid Card title!');
-            setAddNewCardTitle(''); // Reset input
+    const addNewCard = () => {
+        if (!addNewCardTitle || addNewCardTitle.trim() === '') {
+            toast.error('Please enter a valid Card title!');
+            // setAddNewCardTitle(''); // Reset input
             return;
         }
 

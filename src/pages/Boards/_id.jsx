@@ -5,21 +5,25 @@ import Container from '@mui/material/Container';
 import AppBar from '~/components/AppBar/AppBar';
 import BoardBar from './BoardBar/BoardBar';
 import BoardContent from './BoardContent/BoardContent';
-// import { mockData } from '~/apis/mockAPI';
+import { mockData } from '~/apis/mockAPI';
 import { fetchBoardDetailsAPI } from '~/apis';
 
 function Board() {
 
     const [board, setBoard] = useState(null);
 
+    // useEffect(() => {
+    //     // Cái này là fix cứng
+    //     const boardId = '68349d5772aa9e04386219bf';
+    //     // CallApi
+    //     fetchBoardDetailsAPI(boardId)
+    //         .then((board) => {
+    //             setBoard(board);
+    //         });
+    // }, []);
+
     useEffect(() => {
-        // Cái này là fix cứng
-        const boardId = '68349d5772aa9e04386219bf';
-        // CallApi
-        fetchBoardDetailsAPI(boardId)
-            .then((board) => {
-                setBoard(board);
-            });
+        setBoard(mockData.board);
     }, []);
 
     return (

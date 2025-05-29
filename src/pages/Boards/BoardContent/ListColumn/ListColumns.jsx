@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import Box from '@mui/material/Box';
 import Column from './Column/Column';
 import Button from '@mui/material/Button';
@@ -12,7 +13,6 @@ import {
     horizontalListSortingStrategy, // ngang
     //verticalListSortingStrategy // doc
 } from '@dnd-kit/sortable';
-import { add } from 'lodash';
 
 function ListColumns({ columns }) {
     // Sortable Context yeu cau context dang items la mot Array ['id-1', 'id-2', ...] --> (khong phai dang nay!) [{ id:'id-1' }]
@@ -29,13 +29,11 @@ function ListColumns({ columns }) {
     // Save Input:
     const [addNewColumnTitle, setAddNewColumnTitle] = useState('');
 
-    const addNewColumn = (e) => {
-        if (addNewColumnTitle.trim() === '') {
-            console.error('Please enter a valid column title!');
-            setAddNewColumnTitle(''); // Reset input
+    const addNewColumn = () => {
+        if (!addNewColumnTitle || addNewColumnTitle.trim() === '') {
+            toast.error('Please enter a valid column title!');
             return;
         }
-
         // Call API here
         console.log('Value title: ', addNewColumnTitle);
 

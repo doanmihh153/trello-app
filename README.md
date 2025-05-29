@@ -102,6 +102,13 @@ yarn lint
 - Được sinh ra để chặn truy cập đến **Domain độc hại**
 - Vấn đề này sẽ ở bên `Backend` hay bên `API` --> Qua bên `Backend` xử lý!
 
+### `@react-toastify -- Bỏ nó đi mà làm người :)` -> `react-hot-toast -- Xài nó đi nếu lười customs 🙃`
+
+* **Chức năng:** Thông báo bằng cách bắn ra log `success` `error` và từ customs thêm.
+Tin mình đi, rồi bạn sẽ lỗi cho mà coi 🙃
+Mình mất cả 1 tiếng để xem lỗi nhưng đưa lỗi chung chung nên bỏ luôn 😊
+
+
 ### BASE Cơ bản của Eslint
 
 ```bash
